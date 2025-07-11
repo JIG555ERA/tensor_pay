@@ -3,4 +3,5 @@ scikit-learn
 pandas
 numpy
 joblib
-tensorflow
+tensorflow==2.14.0
+
