@@ -18,12 +18,12 @@ def logout():
         "otp_attempts": 0,
         "otp_timestamp": 0
     })
-    st.switch_page("Auth.py")
+    st.switch_page("app.py")
 
 # ======= Auth Check =======
 if not st.session_state.get("authenticated", False):
     st.warning('**⚠️ :red[Unauthorized Access]**')
-    st.switch_page('Auth.py')
+    st.switch_page('app.py')
     st.stop()
 
 # ====== SIDEBAR CONTEXT ======
