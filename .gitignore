@@ -1,0 +1,20 @@
+# Python virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Jupyter Notebook checkpoints (if any)
+.ipynb_checkpoints/
+
+# VS Code settings (optional)
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Streamlit secrets file (if used)
+# .streamlit/secrets.toml
