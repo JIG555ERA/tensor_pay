@@ -80,7 +80,7 @@ with st.expander("📥 Predict Your Salary"):
             # Load encoders and scaler
             encoders = joblib.load("models/encoders.pkl")
             scaler = joblib.load("models/scaler.pkl")
-            model = joblib.load("models/salary_predictor.pkl")
+            model = joblib.load("models/salary_predictor.h5")
 
             # Encode categorical features
             input_dict = {
