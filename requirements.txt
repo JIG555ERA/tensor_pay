@@ -2,10 +2,5 @@ streamlit
 scikit-learn
 pandas
 numpy
-matplotlib
-tensorflow
+tensorflow==2.15.0
 joblib
-smtplib
-random 
-time 
-email
