@@ -17,4 +17,4 @@ __pycache__/
 Thumbs.db
 
 # Streamlit secrets file (if used)
-# .streamlit/secrets.toml
+.streamlit/secrets.toml
