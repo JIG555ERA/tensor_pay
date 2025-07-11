@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 import joblib
-import tensorflow as tf
 import numpy as np
 
 # ======= Config ======
@@ -34,7 +33,7 @@ st.sidebar.button("🔓 Logout", on_click=logout)
 st.title(":green[Tensor Pay: Income Prediction & Profiling System]")
 st.markdown("---")
 
-# ======= Load Excel =======
+# ======= Load Dataset =======
 excel_path = 'datasets/income_census_data_with_salary.csv'  
 
 try:
@@ -61,6 +60,7 @@ with st.expander('📊 Income Trend'):
 
     st.altair_chart(salary_chart, use_container_width=True)
 
+# ======= Prediction Section =======
 with st.expander("📥 Predict Your Salary"):
     st.subheader("👤 Enter Your Profile Info")
 
@@ -78,9 +78,9 @@ with st.expander("📥 Predict Your Salary"):
     if st.button("🎯 Predict My Salary"):
         try:
             # Load encoders and scaler
-            encoders = joblib.load("models/encoders.pkl")  # each col label encoded separately
+            encoders = joblib.load("models/encoders.pkl")
             scaler = joblib.load("models/scaler.pkl")
-            model = tf.keras.models.load_model("models/salary_predictor.h5")
+            model = joblib.load("models/salary_predictor.pkl")
 
             # Encode categorical features
             input_dict = {
@@ -96,9 +96,10 @@ with st.expander("📥 Predict Your Salary"):
                 "hours-per-week": hours_per_week
             }
 
+            # Prepare for prediction
             input_array = np.array([list(input_dict.values())])
             input_scaled = scaler.transform(input_array)
-            predicted_salary = model.predict(input_scaled)[0][0]
+            predicted_salary = model.predict(input_scaled)[0]
 
             st.success(f"💰 Predicted Salary: ₹ {int(predicted_salary):,} per year")
 

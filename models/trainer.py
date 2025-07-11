@@ -1,10 +1,9 @@
 import pandas as pd
-import numpy as np
 import joblib
-import tensorflow as tf
+import os
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
-import os
+from sklearn.ensemble import RandomForestClassifier
 
 # Load the dataset
 df = pd.read_csv("datasets/income_census_data_with_salary.csv")
@@ -25,23 +24,17 @@ y = df["salary"]
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
-# Train-test split
+# Split dataset
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
 
-# Build model
-model = tf.keras.models.Sequential([
-    tf.keras.layers.Dense(64, activation='relu', input_shape=(X_train.shape[1],)),
-    tf.keras.layers.Dense(32, activation='relu'),
-    tf.keras.layers.Dense(1)
-])
+# Train a Scikit-learn model (no TensorFlow)
+model = RandomForestClassifier()
+model.fit(X_train, y_train)
 
-model.compile(optimizer='adam', loss='mean_squared_error')
-model.fit(X_train, y_train, epochs=10, batch_size=32, validation_split=0.1, verbose=1)
-
-# Create models directory
+# Save model + preprocessing
 os.makedirs("models", exist_ok=True)
-
-# Save the model and pre-processing files
-model.save("models/salary_predictor.h5")
+joblib.dump(model, "models/salary_predictor.pkl")
 joblib.dump(scaler, "models/scaler.pkl")
 joblib.dump(encoders, "models/encoders.pkl")
+
+print("✅ Model and preprocessing files saved successfully.")
