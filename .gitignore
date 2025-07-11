@@ -19,7 +19,6 @@ Thumbs.db
 # Streamlit secrets file (if used)
 .streamlit/secrets.toml
 # Ignore large model files
-models/salary_predictor.pkl
-models/salary_predictor.h5
-models/scaler.pkl
-models/encoders.pkl
+models/*.pkl
+models/*.h5
+
