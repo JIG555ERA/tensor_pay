@@ -3,7 +3,6 @@ import pandas as pd
 import altair as alt
 import joblib
 import numpy as np
-import tensorflow as tf
 
 # ======= Config ======
 st.set_page_config(page_title="Dashboard | T.P.", layout="wide")
@@ -81,7 +80,7 @@ with st.expander("📥 Predict Your Salary"):
             # Load encoders and scaler
             encoders = joblib.load("models/encoders.pkl")
             scaler = joblib.load("models/scaler.pkl")
-            model = tf.keras.models.load_model("models/salary_predictor.h5")  # ✅ Fixed here
+            model = joblib.load("models/sklearn_salary_model.pkl")
 
             # Encode categorical features
             input_dict = {
@@ -101,7 +100,7 @@ with st.expander("📥 Predict Your Salary"):
             input_array = np.array([list(input_dict.values())])
             input_scaled = scaler.transform(input_array)
 
-            predicted_salary = model.predict(input_scaled)[0][0]  # ✅ For Keras, grab [0][0]
+            predicted_salary = model.predict(input_scaled)[0]
 
             st.success(f"💰 Predicted Salary: ₹ {int(predicted_salary):,} per year")
 
